@@ -6,23 +6,23 @@
         <title>Encabezado</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="border: none; font-size: 20px;">
-            <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 50px;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary itemsNavEncabezado">
+            <div class="collapse navbar-collapse divNavEncabezado">
 
                 <ul class="navbar-nav">
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ms-sm-5 me-5">
                             <li class="nav-item active ms-sm-5 me-5">
                                 <a class="btn btn-outline-light"
-                                   href="" target="myFrame"><i class="fa-solid fa-house"></i> Inicio</a>
+                                   href="indexNoUser.php" ><i class="fa-solid fa-house"></i> Inicio</a>
                             </li>
                             <li class="nav-item active ms-sm-5 me-5">
                                 <a class="btn btn-outline-light" 
-                                   href="" target="myFrame"><i class="fa-solid fa-book"></i> Buscar Libro</a>
+                                   href="LibrosNoUser.php" ><i class="fa-solid fa-book"></i> Buscar Libro</a>
                             </li>
                             <li class="nav-item active ms-sm-5 me-5">
                                 <a class="btn btn-outline-light" 
-                                   href="" target="myFrame"><i class="fa-solid fa-building"></i> Nosotros</a>
+                                   href="Nosotros.php" ><i class="fa-solid fa-building"></i> Nosotros</a>
                             </li>
                         </ul>
                     </div>
@@ -33,11 +33,11 @@
                 <ul class="navbar-nav">
                     <li class="nav-item active me-5">
                         <a class="btn btn-outline-light" 
-                           href="" target="myFrame"><i class="fa-solid fa-user"></i> Crear Cuenta</a>
+                           href="CrearCuenta.php" ><i class="fa-solid fa-user"></i> Crear Cuenta</a>
                     </li>
                     <li class="nav-item active me-5">
                         <a class="btn btn-outline-light" 
-                           href="" target="myFrame"><i class="fa-solid fa-right-to-bracket"></i> Inicia Sesion</a>
+                           href="./Acceso/Login.php" ><i class="fa-solid fa-right-to-bracket"></i> Inicia Sesion</a>
                     </li>
                 </ul>
             </div>

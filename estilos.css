@@ -14,6 +14,16 @@ main{
     min-leight: 100vh;
     flex-wrap: wrap;
 }
+.itemsNavEncabezado{
+    border: none;
+    font-size: 20px;
+}
+.divNavEncabezado{
+    padding-left: 50px;
+}
+.widthCarrusel{
+    width: 1903px;
+}
 .c-item{
     height: 400px;
 }
@@ -22,6 +32,9 @@ main{
     object-fit: cover;
     filter: brightness(0.6);
 }
+.lineCarrusel{
+    width: 100%;
+}
 .textInformation{
     background: #CCC;
     margin: 50px 200px;
@@ -29,6 +42,18 @@ main{
     padding: 0 50px;
     border: 1px solid;
     border-radius: 10px;
+}
+.biblioteca-info {
+    width: 80%; /* Ajusta el ancho según sea necesario */
+    margin: 0 auto; /* Centra el div en la pantalla */
+    padding: 20px;
+    background-color: #f9f9f9; /* Color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+.biblioteca-info ul {
+    list-style-type: none; /* Quita los puntos de la lista */
+    padding-left: 0;
 }
 footer {
     width: 100%;

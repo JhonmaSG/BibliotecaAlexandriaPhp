@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+              rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <title>Alejandria Login</title>
     </head>
     <body style="background: #989898;">
@@ -42,9 +43,11 @@
                             <input type="password" name="clave" class="form-control">
                             <input type="submit" value="Olvide mi contraseña" class="btn btn-link">
                         </div>
-
+                        <br>
                         <input type="submit" value="Login" class="btn btn-primary">
                         <input type="reset" value="Limpiar" class="btn btn-warning">
+                        <input type="submit" value="Atras" class="btn btn-info" >
+
                     </form>
                 </div>
             </div>
