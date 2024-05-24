@@ -19,9 +19,7 @@ session_start();
                             <img src="../img/logoBiblioteca.png" alt="70" width="170"/>
                             <label style="display: block"><br><b>Bienvenido a Alexandria</b></label>
                             <label style="display: block">Gestos de Biblioteca</label>
-                        </div>
-
-                        <?php
+                        </div><?php
                         // Mostrar mensaje de error si existe
                         if (isset($_SESSION['error_message'])) {
                             echo '<div class="alert alert-danger" role="alert">';
@@ -31,6 +29,8 @@ session_start();
                             unset($_SESSION['error_message']);
                         }
                         ?>
+
+                        
 
                         <div class="form-group">
                             <label>Usuario:</label>

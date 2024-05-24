@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,20 +22,17 @@
                     </div>
 
                     <?php
-                    session_start();
+                    // Mostrar mensaje de error si existe
                     if (isset($_SESSION['error_message'])) {
                         echo '<div class="alert alert-danger" role="alert">';
                         echo $_SESSION['error_message'];
                         echo '</div>';
-                        unset($_SESSION['error_message']); // Limpiar el mensaje de error después de mostrarlo
+                        // Eliminar el mensaje de error después de mostrarlo
+                        unset($_SESSION['error_message']);
                     }
                     ?>
 
                     <form class="form-sign" action="Procesar_Usuario.php" method="POST">
-
-
-
-
                         <div class="form-group">
                             <label>Digite Nombre y Apellido:</label>
                             <input type="text" name="txtnombre" class="form-control">
@@ -54,6 +54,10 @@
                             <input type="password" name="txtpass2" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Pelicula Favorita:</label>
+                            <input type="text" name="txtrespuesta" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label>Digite Correo:</label>
                             <input type="email" name="txtemail" class="form-control">
                         </div>
@@ -62,7 +66,6 @@
                         <input type="submit" name="accion" value="Enviar" class="btn btn-primary">
                         <input type="reset" name="accion" value="Limpiar" class="btn btn-warning">
                         <input type="button" value="Atrás" class="btn btn-info" onclick="window.location.href = '../NoUser/IndexNoUser.php';">
-
                     </form>
 
                 </div>

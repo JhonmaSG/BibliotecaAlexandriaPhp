@@ -26,7 +26,7 @@
                         Nuestros fondos incluyen una selección de literatura clásica, obras de ficción contemporánea, libros de no ficción, y una sección 
                         especializada en libros de texto y materiales de estudio.<br>
 
-                        En nuestra biblioteca, creemos en el poder de la lectura para inspirar, educar y conectar a las personas. 
+                        En nuestra biblioteca Alexandria, creemos en el poder de la lectura para inspirar, educar y conectar a las personas. 
                         Ya sea que estés buscando un libro para pasar el tiempo, un libro de texto para un curso, o simplemente quieras explorar nuevas ideas, estamos aquí para ayudarte.
                         Nuestro personal está comprometido con proporcionarte un servicio de alta calidad y hacer que tu experiencia en nuestra biblioteca sea lo más agradable posible.
                         Ofrecemos asesoramiento en la selección de libros, programas de lectura y actividades para niños y adultos.<br><br><br>
