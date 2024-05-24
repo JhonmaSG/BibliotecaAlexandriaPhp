@@ -11,33 +11,57 @@
             <div class="card col-sm-10">
                 <div class="card-body">
 
-                    <form class="form-sign" action="indexNoUser.php" method="POST">
-                        <div class="form-group text-center">
-                            <h3>Crear cuenta</h3>
-                            <img src="img/logoBiblioteca.png" alt="70" width="170"/>
+                    <div class="form-group text-center">
+                        <h3>Crear cuenta</h3>
+                        <img src="../img/logoBiblioteca.png" alt="70" width="170"/>
 
-                            <label style="display: block">Gestos de Biblioteca</label>
+                        <label style="display: block">Gestos de Biblioteca</label>
+                    </div>
+
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['error_message'])) {
+                        echo '<div class="alert alert-danger" role="alert">';
+                        echo $_SESSION['error_message'];
+                        echo '</div>';
+                        unset($_SESSION['error_message']); // Limpiar el mensaje de error después de mostrarlo
+                    }
+                    ?>
+
+                    <form class="form-sign" action="Procesar_Usuario.php" method="POST">
+
+
+
+
+                        <div class="form-group">
+                            <label>Digite Nombre y Apellido:</label>
+                            <input type="text" name="txtnombre" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Digite usuario</label>
+                            <label>Digite Dni:</label>
+                            <input type="number" name="txtdni" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Digite usuario:</label>
                             <input type="text" name="txtuser" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Digite Contraseña:</label>
-                            <input type="password" name="txtpass" class="form-control">
+                            <input type="password" name="txtpass1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Repita la Contraseña:</label>
+                            <input type="password" name="txtpass2" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Digite Correo:</label>
-                            <input type="email" name="txtuser" class="form-control">
+                            <input type="email" name="txtemail" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label>Digite Dni:</label>
-                            <input type="number" name="txtuser" class="form-control">
-                        </div>
+
                         <br>
                         <input type="submit" name="accion" value="Enviar" class="btn btn-primary">
                         <input type="reset" name="accion" value="Limpiar" class="btn btn-warning">
-                        <input type="button" value="Atrás" class="btn btn-info" onclick="window.location.href = 'indexNoUser.php';">
+                        <input type="button" value="Atrás" class="btn btn-info" onclick="window.location.href = '../NoUser/IndexNoUser.php';">
 
                     </form>
 

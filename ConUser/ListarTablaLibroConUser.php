@@ -1,7 +1,7 @@
 <?php
 
 try {
-    require("ConexionBDPDO.php");
+    require("../ConfiguracionBD/ConexionBDPDO.php");
 
     $mostra_tabla = "SELECT titulo, autor, sinopsis, stock, categoria FROM libro";
     $resultado = $conexion->prepare($mostra_tabla);

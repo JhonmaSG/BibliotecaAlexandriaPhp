@@ -12,11 +12,11 @@
     <body>
 
         <header>
-            <?php include('EncabezadoNoUser.php'); ?>
+            <?php include('EncabezadoConUser.php'); ?>
         </header>
 
         <main>
-            <?php include('Carrusel.php'); ?>
+            <?php include('../Carrusel.php'); ?>
             <div class="biblioteca-info">
                 <h2>Biblioteca Alexandria</h2>
                 <p>Biblioteca Alexandria es una institución dedicada a la promoción de la lectura y el aprendizaje.
@@ -38,7 +38,7 @@
         </main>
 
         <footer>
-            <?php include('Pie.php'); ?>
+            <?php include('../Pie.php'); ?>
         </footer>
 
         <script src="https://kit.fontawesome.com/9dbadc2946.js" crossorigin="anonymous"></script>

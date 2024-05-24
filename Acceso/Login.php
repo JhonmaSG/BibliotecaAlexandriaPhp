@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,43 +13,39 @@
         <div class="container mt-4 col-4">
             <div class="card col-sm-10">
                 <div class="card-body">
-                    <form class="form-sign" method="POST">
+                    <form class="form-sign" method="POST" action='Validar_Login.php'>
                         <div class="form-group text-center">
                             <h3>Login</h3>
                             <img src="../img/logoBiblioteca.png" alt="70" width="170"/>
                             <label style="display: block"><br><b>Bienvenido a Alexandria</b></label>
                             <label style="display: block">Gestos de Biblioteca</label>
                         </div>
+
                         <?php
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            session_start();
-                            $usuario = $_POST['usuario'];
-                            $clave = $_POST['clave'];
-                            if ($usuario == "pepe" and $clave == '1234') {
-                                $_SESSION['usuario'] = $usuario;
-                                //header("Location:../index.php");
-                                echo "<center><h5 style='color: blue'>Usuario y/o Clave "
-                                . "Correctos</h5></center>";
-                            } else {
-                                session_destroy();
-                                echo "<center><h5 style='color: red'>Usuario y/o Clave "
-                                . "Incorrectos</h5></center>";
-                            }
+                        // Mostrar mensaje de error si existe
+                        if (isset($_SESSION['error_message'])) {
+                            echo '<div class="alert alert-danger" role="alert">';
+                            echo $_SESSION['error_message'];
+                            echo '</div>';
+                            // Eliminar el mensaje de error después de mostrarlo
+                            unset($_SESSION['error_message']);
                         }
                         ?>
+
                         <div class="form-group">
                             <label>Usuario:</label>
-                            <input type="text" name="usuario" class="form-control">
+                            <input type="text" name="txtusuario" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" name="clave" class="form-control">
+                            <input type="password" name="txtclave" class="form-control">
                             <input type="submit" value="Olvide mi contraseña" class="btn btn-link">
                         </div>
+
                         <br>
                         <input type="submit" value="Login" class="btn btn-primary">
                         <input type="reset" value="Limpiar" class="btn btn-warning">
-                        <input type="button" value="Atrás" class="btn btn-info" onclick="window.location.href = '../indexNoUser.php';">
+                        <input type="button" value="Atrás" class="btn btn-info" onclick="window.location.href = '../NoUser/IndexNoUser.php';">
                     </form>
                 </div>
             </div>
