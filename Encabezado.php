@@ -18,7 +18,7 @@
                             </li>
                             <li class="nav-item active ms-sm-5 me-5">
                                 <a class="btn btn-outline-light" 
-                                   href="LibrosNoUser.php" ><i class="fa-solid fa-book"></i> Buscar Libro</a>
+                                   href="LibrosNoUser.php" ><i class="fa-solid fa-book"></i> Nuestros Libros</a>
                             </li>
                             <li class="nav-item active ms-sm-5 me-5">
                                 <a class="btn btn-outline-light" 

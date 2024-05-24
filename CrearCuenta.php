@@ -37,7 +37,8 @@
                         <br>
                         <input type="submit" name="accion" value="Enviar" class="btn btn-primary">
                         <input type="reset" name="accion" value="Limpiar" class="btn btn-warning">
-                        <input type="submit" value="Atras" class="btn btn-info" >
+                        <input type="button" value="Atrás" class="btn btn-info" onclick="window.location.href = 'indexNoUser.php';">
+
                     </form>
 
                 </div>

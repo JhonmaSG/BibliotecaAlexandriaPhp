@@ -15,7 +15,9 @@
         </header>
 
         <main>
-            <?php include('Carrusel.php'); ?>
+            <?php
+            include('Carrusel.php');
+            include('./Conexion/ListarTablaLibroNoUser.php');?>
         </main>
 
         <footer>
