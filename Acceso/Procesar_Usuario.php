@@ -17,14 +17,12 @@ $consultasql->execute();
 $resultado = $consultasql->fetchAll();
 
 if ($resultado) {
-    $_SESSION['error_message'] = "El usuario ya existe en la Base de Datos";
-    header("Location: CrearCuenta.php");
-    exit;
+    $_SESSION['message'] = "El usuario ya existe en la Base de Datos";
+    $_SESSION['message_type'] = "error";
 } else {
     if ($contraseña1 != $contraseña2) {
-        $_SESSION['error_message'] = "Las contraseñas no coinciden";
-        header("Location: CrearCuenta.php");
-        exit;
+        $_SESSION['message'] = "Las contraseñas no coinciden";
+        $_SESSION['message_type'] = "error";
     } else {
         $contraseña_hash = password_hash($contraseña1, PASSWORD_DEFAULT);
         $sentenciasql = $conexion->prepare("INSERT INTO cliente (usuario, contraseña, correo, cedula, respuesta, nombre_usuario) VALUES (?, ?, ?, ?, ?, ?);");
@@ -36,13 +34,15 @@ if ($resultado) {
         $sentenciasql->bindParam(6, $nombre_usuario);
         
         if ($sentenciasql->execute()) {
-            header("Location: ../NoUser/IndexNoUser.php");
-            exit;
+            $_SESSION['message'] = "Cuenta creada exitosamente";
+            $_SESSION['message_type'] = "success";
         } else {
-            $_SESSION['error_message'] = "Ocurrió un error al registrar el usuario";
-            header("Location: CrearCuenta.php");
-            exit;
+            $_SESSION['message'] = "Ocurrió un error al registrar el usuario";
+            $_SESSION['message_type'] = "error";
         }
     }
 }
+
+header("Location: mensajeCuentaCreada.php");
+exit;
 ?>
