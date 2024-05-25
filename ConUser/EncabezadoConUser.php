@@ -71,7 +71,7 @@ if (!isset($_SESSION['usuario'])) {
                             echo "<li><a class='dropdown-item' href='#'>" . htmlspecialchars($correo) . "</a></li>";
                         }
                         ?>
-                        <li><a class="dropdown-item" href="#" id="cambiar-contraseña">Cambiar contraseña</a></li>
+                        <li><a class="dropdown-item" href="./ActualizarContraseñaConUser.php" id="cambiar-contraseña">Cambiar contraseña</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <?php
