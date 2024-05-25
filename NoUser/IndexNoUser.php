@@ -21,7 +21,7 @@
                 <center><b><h1>Bienvenidos a nuestra biblioteca</h1></b>
                     <br>
                     <p>
-                        La biblioteca es un espacio dedicado a la lectura, el aprendizaje y la creatividad. Aquí, encontrarás una amplia variedad de libros, 
+                        Esta gran biblioteca es un espacio dedicado a la lectura, el aprendizaje y la creatividad. Aquí, encontrarás una amplia variedad de libros, 
                         revistas y materiales de referencia que te ayudarán a expandir tus conocimientos y a descubrir nuevas ideas.<br>
                         Nuestros fondos incluyen una selección de literatura clásica, obras de ficción contemporánea, libros de no ficción, y una sección 
                         especializada en libros de texto y materiales de estudio.<br>

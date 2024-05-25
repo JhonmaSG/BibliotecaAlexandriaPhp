@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } else {
                 $_SESSION['error_message'] = 'Credenciales incorrectas';
-                header("Location: Login.php");
+                header("Location: ../ConUser/IndexConUser.php");
                 exit;
             }
         } else {
