@@ -1,10 +1,12 @@
+<?php
+?>
 <html>
     <head>
-        <title>MainNoUser</title>
+        <title>Carrusel</title>
     </head>
     <body>
     <center>
-        <div id="carouselExampleCaptions" class="carousel slide widthCarrusel" data-bs-ride="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide widthCarrusel" data-bs-ride="carousel" data-bs-interval="4000">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
@@ -43,8 +45,6 @@
                 <span class="visually-hidden">Siguiente</span>
             </button>
         </div>
-        
     </center>
-    
     </body>
 </html>

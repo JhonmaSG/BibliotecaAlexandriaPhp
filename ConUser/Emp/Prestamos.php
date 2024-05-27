@@ -17,7 +17,7 @@
         <main>
             <?php
             include('../../Carrusel.php');
-            include('ListarTablaLibroConUser.php');?>
+            include('ListarTablaPrestamoConEmp.php');?>
         </main>
 
         <footer>

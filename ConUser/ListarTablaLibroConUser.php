@@ -43,7 +43,17 @@ try {
                 <button type="submit" name="autor" class="btn btn-primary">Buscar por Autor</button>
                 <button type="submit" name="sinopsis" class="btn btn-primary">Buscar por Sinopsis</button>
             </form>
-
+            
+            <?php
+            if (isset($_SESSION['message'])) {
+                $alert_type = $_SESSION['message_type'] === 'error' ? 'alert-danger' : 'alert-success';
+                echo '<div class="alert ' . $alert_type . '" role="alert">';
+                echo '<h2 class="text-center">' . $_SESSION['message'] . '</h2>';
+                echo '</div>';
+                unset($_SESSION['message']);
+                unset($_SESSION['message_type']);
+            }
+            ?>
 
             <?php if ( ( (isset($_GET['enviar'])) || (isset($_GET['titulo']))
                     || (isset($_GET['autor'])) || (isset($_GET['sinopsis']))) && !empty($resultados)): ?>
@@ -57,6 +67,7 @@ try {
                                 <th>SINOPSIS</th>
                                 <th>STOCK</th>
                                 <th>CATEGORIA</th>
+                                <th>ESTADO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,6 +78,7 @@ try {
                                     <td><?php echo htmlspecialchars($resultado['sinopsis']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['stock']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['categoria']); ?></td>
+                                    <td><?php echo htmlspecialchars($resultado['estado']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -74,7 +86,10 @@ try {
                 </div>
             <?php elseif (isset($_GET['enviar']) && empty($resultados)): ?>
                 <div class="mt-4">
-                    <p>No se encontraron resultados.</p>
+                    <?php
+                    $_SESSION['message'] = "No se encontraron Resultados";
+                    $_SESSION['message_type'] = "alert-danger";
+                    ?>
                 </div>
             <?php endif; ?>
         </div>

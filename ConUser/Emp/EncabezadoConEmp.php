@@ -35,7 +35,7 @@ if (!isset($_SESSION['usuario'])) {
             <title>Encabezado</title>
         </head>
         <body>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-warning itemsNavEncabezado">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-success itemsNavEncabezado">
                 <div class="collapse navbar-collapse divNavEncabezado">
 
                     <ul class="navbar-nav">
@@ -51,11 +51,19 @@ if (!isset($_SESSION['usuario'])) {
                                 </li>
                                 <li class="nav-item active ms-sm-5 me-5">
                                     <a class="btn btn-outline-light" 
+                                       href="./MovimientoLibros.php" ><i class="fa-solid fa-book-open"></i></i> Movimiento Libros</a>
+                                </li>
+                                <li class="nav-item active ms-sm-5 me-5">
+                                    <a class="btn btn-outline-light" 
                                        href="./Prestamos.php" ><i class="fa-solid fa-building"></i> Prestamos</a>
                                 </li>
                                 <li class="nav-item active ms-sm-5 me-5">
                                     <a class="btn btn-outline-light" 
                                        href="./Devoluciones.php" ><i class="fa-solid fa-building"></i> Devoluciones</a>
+                                </li>
+                                <li class="nav-item active ms-sm-5 me-5">
+                                    <a class="btn btn-outline-light" 
+                                       href="./Multas.php" ><i class="fa-solid fa-money-bill"></i> Multas</a>
                                 </li>
                             </ul>
                         </div>

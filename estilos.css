@@ -44,12 +44,12 @@ main{
     border-radius: 10px;
 }
 .biblioteca-info {
-    width: 80%; /* Ajusta el ancho según sea necesario */
-    margin: 0 auto; /* Centra el div en la pantalla */
+    width: 80%;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9; /* Color de fondo */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .biblioteca-info ul {
     list-style-type: none; /* Quita los puntos de la lista */
