@@ -100,6 +100,7 @@ try {
                                    name="txtretrasodias" class="form-control" readonly>
                         </div><br>
                         <input type="submit" name="Actualizar" value="Actualizar" class="btn btn-success">
+                        <input type="reset" name="Limpiar" value="Limpiar" class="btn btn-warning">
                     </form>
                 </div>
             </div>

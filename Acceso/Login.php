@@ -35,6 +35,7 @@ session_start();
                         <select name="tipo_cuenta" class="form-control">
                             <option value="cliente">Cliente</option>
                             <option value="empleado">Empleado</option>
+                            <option value="administrador">Administrador</option>
                         </select>
                     </div>
                     <div class="form-group">

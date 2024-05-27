@@ -1,6 +1,6 @@
 <?php
 try {
-    require("../ConfiguracionBD/ConexionBDPDO.php");
+    require("../../ConfiguracionBD/ConexionBDPDO.php");
 
     $consultaBusqueda = "SELECT * FROM libro";
 
