@@ -55,7 +55,7 @@ if (!isset($_SESSION['usuario'])) {
                                 </li>
                                 <li class="nav-item active ms-sm-5 me-5">
                                     <a class="btn btn-outline-light" 
-                                       href="./Reportes.php" ><i class="fa-solid fa-bag-shopping"></i> Reportes</a>
+                                       href="./Reportes.php" ><i class="fa-solid fa-file-pdf"></i> Reportes</a>
                                 </li>
                             </ul>
                         </div>

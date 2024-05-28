@@ -21,7 +21,7 @@ try {
             $consultaBusqueda .= " WHERE cedula = '$busqueda'";
         }
     } else {
-        $consultaBusqueda .= " WHERE id_empleado > 1";
+        $consultaBusqueda .= " WHERE id_empleado > 1;";// WHERE id_empleado > 1
     }
     $ejecutar = $conexion->prepare($consultaBusqueda);
     $ejecutar->execute();
