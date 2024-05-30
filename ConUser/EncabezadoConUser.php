@@ -1,10 +1,7 @@
 <?php
-session_start();
-
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION['usuario'])) {
-    // Si el usuario no está autenticado, redirigir a la página de inicio
-    header("Location: ../NoUser/IndexNoUser.php");
+//session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'cliente') {
+    header("Location: ../NoUser/MensajeCerrarSesion.php");
     exit();
 } else {
 
@@ -17,7 +14,7 @@ if (!isset($_SESSION['usuario'])) {
     if (isset($_SESSION['usuario'])) {
         $usuario = $_SESSION['usuario'];
     }
-
+/*
 // Verificar si se ha presionado el enlace "Salir"
     if (isset($_GET['logout'])) {
         // Destruir la sesión
@@ -26,6 +23,7 @@ if (!isset($_SESSION['usuario'])) {
         header("Location: ../NoUser/IndexNoUser.php");
         exit();
     }
+ */
     ?>
     <!doctype html>
     <html lang="es">
@@ -81,7 +79,8 @@ if (!isset($_SESSION['usuario'])) {
                             <?php
                             // Si el usuario está autenticado, mostrar el enlace de "Salir"
                             if (isset($_SESSION['usuario'])) {
-                                echo '<p><a href="../NoUser/IndexNoUser.php?logout=true">Salir</a></p>';
+                                //echo '<p><a href="../NoUser/IndexNoUser.php?logout=true">Salir</a></p>';
+                                echo '<p><a href="../NoUser/CerrarSesion.php">Salir</a></p>';
                             }
                             ?>
                         </li>

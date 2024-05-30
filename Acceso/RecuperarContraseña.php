@@ -54,8 +54,7 @@
 
                         <input type="submit" name="EnviarRecuperacion" value="EnviarRecuperacion" class="btn btn-primary">
                         <input type="reset" name="Limpiar" value="Limpiar" class="btn btn-warning">
-                        <input type="submit" name="Atras" value="Atras" class="btn btn-primary">
-
+                        <input type="button" name="Atras" value="Atras" class="btn btn-primary" onclick="history.back()">
                     </form><br>
                 </div>
             </div>

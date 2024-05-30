@@ -6,12 +6,12 @@
               rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="../estilos.css">
 
-        <title>index</title>
+        <title>Index No User</title>
     </head>
     <body>
 
         <header>
-            <?php include('../EncabezadoNoUser.php'); ?>
+            <?php include('EncabezadoNoUser.php'); ?>
         </header>
 
         <main>

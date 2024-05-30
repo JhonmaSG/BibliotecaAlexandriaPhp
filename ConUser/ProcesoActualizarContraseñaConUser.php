@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'cliente') {
+    header("Location: ../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
 require("../ConfiguracionBD/ConexionBDPDO.php");
 
 if (isset($_POST['submit'])) {

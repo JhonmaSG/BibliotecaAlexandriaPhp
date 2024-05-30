@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'empleado') {
+    header("Location: ../../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
+?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -6,7 +13,7 @@
               rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="../../estilos.css">
 
-        <title>index</title>
+        <title>Multas</title>
     </head>
     <body>
 

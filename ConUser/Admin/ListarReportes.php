@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'administrador') {
+    header("Location: ../../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
 require("../../ConfiguracionBD/ConexionBDPDO.php");
 $resultados = array();
 $tipo_grafico = '';
@@ -6,7 +10,7 @@ $tipo_de_reporte = '';
 $tabla = '';
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        //Guardar los valores previos de los SELECTs
+//Guardar los valores previos de los SELECTs
         if (isset($_POST['tipo_de_reporte']) || isset($_POST['tipo_grafico']) || isset($_POST['tabla'])) {
             $tipo_de_reporte = $_POST['tipo_de_reporte'];
             $tipo_grafico = $_POST['tipo_grafico'];
@@ -24,7 +28,7 @@ try {
                 $ejecutar->execute();
                 $resultados = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
             } else {
-                // Agregar condición de búsqueda si se proporciona un término de búsqueda
+// Agregar condición de búsqueda si se proporciona un término de búsqueda
                 if (!empty($busqueda) && !empty($tabla)) {
                     $column = '';
                     switch ($tabla) {
@@ -53,7 +57,7 @@ try {
             }
         } elseif (isset($_POST['reporte']) && $_POST['tipo_reporte'] == 'pdf' && !empty($_POST['tabla'])) {
             echo '<script>window.location="./PDFTablas/CrearPDFTablas.php"</script>';
-            //header("Location: ./PDFTablas/CrearPDFTablas.php?tabla={$_POST['tabla']}&busqueda={$_POST['busqueda']}");
+//header("Location: ./PDFTablas/CrearPDFTablas.php?tabla={$_POST['tabla']}&busqueda={$_POST['busqueda']}");
             exit;
         }/* else{
           echo '<script>window.location="./Reportes.php"</script>';
@@ -98,7 +102,6 @@ try {
                         <select class="form-control" name="tipo_grafico">
                             <option value="">Selecciona un tipo de gráfico</option>
                             <option value="lineas" <?php if ($tipo_grafico == 'lineas') echo 'selected'; ?>>Gráfico de Líneas</option>
-                            <option value="area" <?php if ($tipo_grafico == 'area') echo 'selected'; ?>>Gráfico de Área</option>
                             <option value="barras" <?php if ($tipo_grafico == 'barras') echo 'selected'; ?>>Gráfico de Barras</option>
                             <option value="torta" <?php if ($tipo_grafico == 'torta') echo 'selected'; ?>>Gráfico de Torta</option>
                         </select>
@@ -112,13 +115,8 @@ try {
                         <option value="libro" <?php if ($tabla == 'libro') echo 'selected'; ?>>Libro</option>
                         <option value="prestamo" <?php if ($tabla == 'prestamo') echo 'selected'; ?>>Préstamo</option>
                         <option value="multa" <?php if ($tabla == 'multa') echo 'selected'; ?>>Multa</option>
-                        <option value="historial_multas_borradas" <?php if ($tabla == 'historial_multas_borradas') echo 'selected'; ?>>Historial de Multas</option>
                     </select><br>
 
-                </div>
-                <div class="form-group">
-                    <label for="busqueda">Buscar:</label><br>
-                    <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Ingrese la búsqueda" style="width: 100%;">
                 </div><br>
                 <button type="submit" name="enviar" class="btn btn-warning">Generar Tabla</button>
             </form><br>
@@ -129,13 +127,11 @@ try {
                         <button type = "submit" name = "reporte" class = "btn btn-primary">Generar Reporte</button>
                     <?php endif; ?>
                 </form>
-                <form action="./GraficosTablas/GenerarGraficas.php" method="POST"><!-- GRAFICOS  -->
+                <!-- GRAFICOS -->
+                <form action="./GraficosTablas/GenerarGraficas.php" method="POST" target="_blank">
                     <input type="hidden" name="tabla" value="<?php echo htmlspecialchars($tabla); ?>">
                     <?php if ($tipo_de_reporte == 'grafico' && $tipo_grafico == 'lineas' && !empty($tabla)): ?>
                         <button type = "submit" name = "graficolinea" class = "btn btn-primary">Generar Gráfico Lineas</button>
-                    <?php endif; ?>
-                    <?php if ($tipo_de_reporte == 'grafico' && $tipo_grafico == 'area' && !empty($tabla)): ?>
-                        <button type = "submit" name = "graficoarea" class = "btn btn-primary">Generar Gráfico Area</button>
                     <?php endif; ?>
                     <?php if ($tipo_de_reporte == 'grafico' && $tipo_grafico == 'barras' && !empty($tabla)): ?>
                         <button type = "submit" name = "graficobarra" class = "btn btn-primary">Generar Gráfico Barras</button>
@@ -143,7 +139,7 @@ try {
                     <?php if ($tipo_de_reporte == 'grafico' && $tipo_grafico == 'torta' && !empty($tabla)): ?>
                         <button type = "submit" name = "graficopie" class = "btn btn-primary">Generar Gráfico Torta</button>
                     <?php endif; ?>
-                </form>
+                </form><br><br>
             </div>
             <br>
 
@@ -154,6 +150,15 @@ try {
                         tipoGraficoContainer.style.display = 'block';
                     } else {
                         tipoGraficoContainer.style.display = 'none';
+                    }
+                });
+
+                // Mantener el select de tipo de gráfico visible si se ha seleccionado "gráfico" previamente
+                window.addEventListener('DOMContentLoaded', function () {
+                    var tipoGraficoContainer = document.getElementById('tipo_grafico_container');
+                    var tipoDeReporteSelect = document.getElementById('tipo_de_reporte');
+                    if (tipoDeReporteSelect.value === 'grafico') {
+                        tipoGraficoContainer.style.display = 'block';
                     }
                 });
             </script>

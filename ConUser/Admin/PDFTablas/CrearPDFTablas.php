@@ -2,7 +2,7 @@
 
 require('../../../../fpdf186/fpdf.php');
 require('../../../ConfiguracionBD/ConexionBDPDO.php');
-$datetime = date('Y-m-d H:i:s'); // Fecha y hora actuales en formato YYYY-MM-DD HH:MM:SS
+$datetime = date('Y-m-d'); // Fecha y hora actuales en formato YYYY-MM-DD HH:MM:SS
 
 class PDF extends FPDF {
 

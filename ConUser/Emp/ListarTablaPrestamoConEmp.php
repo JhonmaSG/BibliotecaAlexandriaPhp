@@ -1,4 +1,9 @@
 <?php
+//session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'empleado') {
+    header("Location: ../../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
 require("../../ConfiguracionBD/ConexionBDPDO.php");
 $libro = [];
 $resultados = [];

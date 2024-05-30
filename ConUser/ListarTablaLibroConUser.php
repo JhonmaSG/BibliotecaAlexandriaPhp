@@ -1,4 +1,10 @@
 <?php
+//session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'cliente') {
+    header("Location: ../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
+
 require("../ConfiguracionBD/ConexionBDPDO.php");
 try {
     $consultaBusqueda = "SELECT * FROM libro";
@@ -42,17 +48,6 @@ try {
                 <button type="submit" name="autor" class="btn btn-primary">Buscar por Autor</button>
                 <button type="submit" name="sinopsis" class="btn btn-primary">Buscar por Sinopsis</button>
             </form>
-            
-            <?php
-            if (isset($_SESSION['message'])) {
-                $alert_type = $_SESSION['message_type'] === 'error' ? 'alert-danger' : 'alert-success';
-                echo '<div class="alert ' . $alert_type . '" role="alert">';
-                echo '<h2 class="text-center">' . $_SESSION['message'] . '</h2>';
-                echo '</div>';
-                unset($_SESSION['message']);
-                unset($_SESSION['message_type']);
-            }
-            ?>
 
             <?php if ( ( (isset($_GET['enviar'])) || (isset($_GET['titulo']))
                     || (isset($_GET['autor'])) || (isset($_GET['sinopsis']))) && !empty($resultados)): ?>
@@ -83,14 +78,13 @@ try {
                         </tbody>
                     </table>
                 </div>
-            <?php elseif (isset($_GET['enviar']) && empty($resultados)): ?>
+            <?php elseif ( ( isset($_GET['enviar']) || isset($_GET['titulo'])
+                    || isset($_GET['autor']) || isset($_GET['sinopsis'])) && empty($resultados)): ?>
                 <div class="mt-4">
-                    <?php
-                    $_SESSION['message'] = "No se encontraron Resultados";
-                    $_SESSION['message_type'] = "alert-danger";
-                    ?>
+                    <h3>No se encontraron Resultados</h3>
                 </div>
             <?php endif; ?>
+            <br><br><br><br><br><br><br><br><br><br><br>
         </div>
     </body>
 </html>

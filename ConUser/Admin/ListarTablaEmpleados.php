@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'administrador') {
+    header("Location: ../../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
 require("../../ConfiguracionBD/ConexionBDPDO.php");
 $empleado = [];
 $resultados = array();
@@ -21,7 +25,7 @@ try {
             $consultaBusqueda .= " WHERE cedula = '$busqueda'";
         }
     } else {
-        $consultaBusqueda .= " WHERE id_empleado > 1;";// WHERE id_empleado > 1
+        $consultaBusqueda .= " WHERE id_empleado > 1;"; // WHERE id_empleado > 1
     }
     $ejecutar = $conexion->prepare($consultaBusqueda);
     $ejecutar->execute();
@@ -103,7 +107,7 @@ try {
                         </div>
                         <div class="form-group">
                             <label>Fecha Fin</label>
-                            <input type="text" value="<?php echo isset($empleado['fecha_fin']) ? htmlspecialchars($empleado['fecha_fin']) : ''; ?>"
+                            <input type="text" value="<?php echo isset($empleado['fecha_fin']) ? htmlspecialchars($empleado['fecha_fin']) : null; ?>"
                                    name="txtfechafin" class="form-control">
                         </div>
                         <div class="form-group">
@@ -121,7 +125,6 @@ try {
                     </form>
                 </div>
             </div>
-        </div>
 
         <?php
         if (isset($_SESSION['message'])) {
@@ -199,7 +202,7 @@ try {
             $respuesta = $_POST["txtrespuesta"];
             $nombreEmp = $_POST["txtnombreemp"];
             $apellidoEmp = $_POST["txtapellidoemp"];
-            $fechaFin = $_POST["txtfechafin"];
+            $fecha_fin = isset($_POST['txtfechafin']) ? $_POST['txtfechafin'] : null;
             $rol = $_POST["txtrol"];
             $estado = $_POST["txtestado"];
 
@@ -266,7 +269,7 @@ try {
             $stmt->execute();
             $_SESSION['message'] = "Usuario Actualizado Correctamente";
             $_SESSION['message_type'] = "success";
-            echo '<script>window.location="./Empleados.php"</script>';
+            //echo '<script>window.location="./Empleados.php"</script>';
             //echo "Los datos se han actualizado correctamente en la tabla libro.";
         } catch (PDOException $e) {
             echo "Error al actualizar datos en la tabla Empleados: " . $e->getMessage();
@@ -281,11 +284,11 @@ try {
             $stmt->execute([$id_libro_borrar]);
             $_SESSION['message'] = "Usuarios Borrado correctamente";
             $_SESSION['message_type'] = "success";
-            echo '<script>window.location="./Empleados.php"</script>';
+            //echo '<script>window.location="./Empleados.php"</script>';
         } catch (PDOException $e) {
             $_SESSION['message'] = "Error en Consulta";
             $_SESSION['message_type'] = "error";
-            echo "Error al intentar borrar en Usuarios: " . $e->getMessage();
+            //echo "Error al intentar borrar en Usuarios: " . $e->getMessage();
         }
     }
     ?>

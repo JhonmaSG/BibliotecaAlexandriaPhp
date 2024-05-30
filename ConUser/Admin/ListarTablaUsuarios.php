@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'administrador') {
+    header("Location: ../../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
 require("../../ConfiguracionBD/ConexionBDPDO.php");
 $usuario = [];
 $resultados = array();

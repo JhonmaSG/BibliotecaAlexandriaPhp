@@ -1,6 +1,7 @@
 <?php
 require("../../../ConfiguracionBD/ConexionBDPDO.php");
 require_once '../../../../phplot-6.2.0/phplot.php';
+$datetime = date('Y-m-d'); // Fecha y hora actuales en formato YYYY-MM-DD HH:MM:SS
 $consulta = '';
 $tipo = '';
 $ejeX = '';
@@ -18,29 +19,29 @@ if (isset($_POST['tabla'])) {
     try {
         switch ($tabla) {
             case 'cliente':
-                $consulta = "SELECT usuario, estado FROM cliente";
-                $ejeX = 'usuario';
-                $ejeY = 'estado';
+                $consulta = "SELECT DATE_FORMAT(fecha_inicio, '%m') AS mes, COUNT(*) AS cantidad_clientes FROM cliente GROUP BY mes ORDER BY mes";
+                $ejeX = 'Usuarios';
+                $ejeY = 'Meses';
                 break;
             case 'empleado':
-                $consulta = "SELECT id_empleado, estado FROM empleado";
-                $ejeX = 'id_empleado';
-                $ejeY = 'estado';
+                $consulta = "SELECT DATE_FORMAT(fecha_inicio, '%m') AS mes, COUNT(*) AS cantidad_empleado FROM empleado GROUP BY mes ORDER BY mes";
+                $ejeX = 'Empleados';
+                $ejeY = 'Meses';
                 break;
             case 'libro':
-                $consulta = "SELECT categoria, stock FROM libro";
+                $consulta = "SELECT categoria, SUM(stock) FROM libro GROUP BY categoria";
                 $ejeX = 'categoria';
                 $ejeY = 'stock';
                 break;
             case 'prestamo':
-                $consulta = "SELECT id_cliente, retraso_dias FROM prestamo";
-                $ejeX = 'id_cliente';
-                $ejeY = 'retraso_dias';
+                $consulta = "SELECT DATE_FORMAT(fecha_inicio, '%m') AS mes, COUNT(*) AS cantidad_prestamo FROM prestamo GROUP BY mes ORDER BY mes";
+                $ejeX = 'Prestamos';
+                $ejeY = 'Meses';
                 break;
             case 'multa':
-                $consulta = "SELECT id_multa, valor FROM multa";
-                $ejeX = 'id_multa';
-                $ejeY = 'valor';
+                $consulta = "SELECT valor, COUNT(*) AS cantidad_multas FROM multa GROUP BY valor ORDER BY cantidad_multas DESC;";
+                $ejeX = 'Valor multa';
+                $ejeY = 'Cantidad Deudores';
                 break;
             case 'historial_multas_borradas':
                 $consulta = "SELECT id_multa, valor FROM historial_multas_borradas";
@@ -62,18 +63,18 @@ if (isset($_POST['tabla'])) {
         echo ("Error....:" . $e->getMessage());
     }
 
-    $plot = new PHPlot(1280, 720);
+    $plot = new PHPlot(1400, 700);
     $plot->SetImageBorderType('plain');
     $plot->SetPlotType($tipo);
     $plot->SetDataValues($datos);
-    $plot->SetTitle('Graficos estadisticos con Php - CLIENTES');
+    $plot->SetTitle('Graficos estadisticos de '.$tabla.' - Fecha de Grafico: '.$datetime);
     if ($tipo == 'pie') {
         $plot->SetDataType('text-data-single');
         foreach ($datos as $fila)
             $plot->SetLegend(implode(':', $fila));
     } else {
         $plot->SetDataType('text-data');
-        $plot->SetDataColors('gray');
+        $plot->SetDataColors('purple');
         $plot->SetPrecisionY(0);
         $plot->SetXTitle($ejeX);
         $plot->SetYTitle($ejeY);

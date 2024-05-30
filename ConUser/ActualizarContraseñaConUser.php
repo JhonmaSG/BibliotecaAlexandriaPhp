@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'cliente') {
+    header("Location: ../NoUser/MensajeCerrarSesion.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +28,6 @@
                 <form class="form-sign" action="ProcesoActualizarContraseñaConUser.php" method="POST">
 
                     <?php
-                    session_start(); // Iniciar la sesión
                     // Mostrar mensaje de error si existe
                     if (isset($_SESSION['error_message'])) {
                         echo '<div class="alert alert-danger" role="alert">';

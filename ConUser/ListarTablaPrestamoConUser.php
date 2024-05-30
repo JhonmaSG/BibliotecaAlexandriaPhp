@@ -1,7 +1,8 @@
 <?php
-// Verifica si la sesión ya está activa
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+//session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'cliente') {
+    header("Location: ../NoUser/MensajeCerrarSesion.php");
+    exit();
 }
 
 try {
@@ -85,9 +86,10 @@ try {
             </div>
         <?php elseif ((isset($_GET['enviar']) || isset($_GET['pendientes'])) && empty($resultados)): ?>
             <div class="mt-4">
-                <p>No se encontraron resultados.</p>
+                <h3>¡Estas al dia?</h3>
             </div>
         <?php endif; ?>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </body>
 </html>
