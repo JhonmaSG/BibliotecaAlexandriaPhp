@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['tipo_cuenta'] != 'empleado') {
 require("../../ConfiguracionBD/ConexionBDPDO.php");
 $libro = [];
 $resultados = [];
+$stock = [];
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $consulta = "SELECT * FROM prestamo WHERE id_prestamo = ?";
@@ -16,15 +17,19 @@ if (isset($_GET['id'])) {
 }
 
 try {
-    $consultaBusqueda = "SELECT * FROM prestamo";
+    $consultaBusqueda = "SELECT prestamo.id_prestamo , prestamo.fecha_inicio, prestamo.fecha_limite_entrega , 
+        prestamo.fecha_entrega, prestamo.id_libro ,  libro.stock , prestamo.id_cliente , 
+        prestamo.id_empleado_presta , prestamo.id_empleado_recibe , prestamo.retraso_dias 
+        FROM prestamo
+        INNER JOIN libro ON prestamo.id_libro = libro.id_libro";
     if (!empty($_GET['busqueda'])) {
         $busqueda = $_GET['busqueda'];
         if (isset($_GET['id_libro'])) {
-            $consultaBusqueda .= " WHERE id_libro LIKE '%$busqueda%'";
+            $consultaBusqueda .= " WHERE libro.id_libro LIKE '%$busqueda%'";
         } elseif (isset($_GET['id_cliente'])) {
-            $consultaBusqueda .= " WHERE id_cliente LIKE '%$busqueda%'";
+            $consultaBusqueda .= " WHERE prestamo.id_cliente LIKE '%$busqueda%'";
         } elseif (isset($_GET['id_empleado_presta'])) {
-            $consultaBusqueda .= " WHERE id_empleado_presta LIKE '%$busqueda%'";
+            $consultaBusqueda .= " WHERE prestamo.id_empleado_presta LIKE '%$busqueda%'";
         }
     }
     $ejecutar = $conexion->prepare($consultaBusqueda);
@@ -85,6 +90,11 @@ try {
                                    name="txtidlibro" class="form-control" >
                         </div>
                         <div class="form-group">
+                            <label>Stock Libro</label>
+                            <input type="number" value="<?php echo isset($libro['stock']) ? htmlspecialchars($libro['stock']) : ''; ?>"
+                                   name="txtstock" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
                             <label>Id Cliente</label>
                             <input type="number" value="<?php echo isset($libro['id_cliente']) ? htmlspecialchars($libro['id_cliente']) : ''; ?>"
                                    name="txtidcliente" class="form-control" >
@@ -133,6 +143,7 @@ try {
                                 <th>FECHA LIMITE</th>
                                 <th>FECHA ENTREGADA</th>
                                 <th>ID LIBRO</th>
+                                <th>STOCK</th>
                                 <th>ID CLIENTE</th>
                                 <th>ID EMPLEADO PRESTO</th>
                                 <th>ID EMPLEADO RECIBE</th>
@@ -148,6 +159,7 @@ try {
                                     <td><?php echo htmlspecialchars($resultado['fecha_limite_entrega']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['fecha_entrega']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['id_libro']); ?></td>
+                                    <td><?php echo htmlspecialchars($resultado['stock']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['id_cliente']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['id_empleado_presta']); ?></td>
                                     <td><?php echo htmlspecialchars($resultado['id_empleado_recibe']); ?></td>
@@ -163,6 +175,7 @@ try {
                 </div>
             <?php elseif (isset($_GET['busqueda']) && empty($resultados)): ?>
                 <div class="mt-4">
+                    <h1 class="text-center">No se encontraron datos</h1>
                     <?php
                     //$_SESSION['message'] = "No se encontraron Resultados";
                     //$_SESSION['message_type'] = "alert-danger";
@@ -172,38 +185,40 @@ try {
         </div><br>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Agregar"])) {
-            try {
-                $fechaInicio = $_POST["txtfechainicio"];
-                $fechaEntrega = !empty($_POST["txtfechaentrega"]) ? $_POST["txtfechaentrega"] : NULL;
-                $idLibro = $_POST["txtidlibro"];
-                $idCliente = $_POST["txtidcliente"];
-                $empleadoPresta = $_POST["txtidempleadopresta"];
-                $empleadoRecibe = !empty($_POST["txtidempleadorecibe"]) ? $_POST["txtidempleadorecibe"] : NULL;
-                $retrasoDias = !empty($_POST["txtretrasodias"]) ? $_POST["txtretrasodias"] : NULL;
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Agregar'])) {
+        $fechaInicio = $_POST['txtfechainicio'];
+        $fechaLimiteEntrega = date('Y-m-d', strtotime($_POST['txtfechainicio'] . ' + 8 days'));
+        $idLibro = $_POST['txtidlibro'];
+        $idCliente = $_POST['txtidcliente'];
+        $idEmpleadoPresta = $_POST['txtidempleadopresta'];
+        
+        try {
+            // Iniciar transacción
+            $conexion->beginTransaction();
 
-                $consulta = "INSERT INTO prestamo (fecha_inicio, fecha_limite_entrega, fecha_entrega, id_libro, id_cliente, id_empleado_presta, id_empleado_recibe, retraso_dias) "
-                        . "SELECT ?, DATE_ADD(?, INTERVAL 8 DAY), ?, ?, ?, ?, ?, ? "
-                        . "FROM dual WHERE EXISTS (SELECT 1 FROM libro WHERE id_libro = ? AND estado = 'activo')";
+            // Insertar préstamo
+            $sqlInsert = "INSERT INTO prestamo (fecha_inicio, fecha_limite_entrega, id_libro, id_cliente, id_empleado_presta) 
+                          VALUES (?, ?, ?, ?, ?)";
+            $stmtInsert = $conexion->prepare($sqlInsert);
+            $stmtInsert->execute([$fechaInicio, $fechaLimiteEntrega, $idLibro, $idCliente, $idEmpleadoPresta]);
 
-                $stmt = $conexion->prepare($consulta);
-                $stmt->execute([$fechaInicio, $fechaInicio, $fechaEntrega, $idLibro, $idCliente, $empleadoPresta, $empleadoRecibe, $retrasoDias, $idLibro]);
+            // Actualizar stock del libro
+            $sqlUpdateStock = "UPDATE libro SET stock = stock - 1 WHERE id_libro = ?";
+            $stmtUpdateStock = $conexion->prepare($sqlUpdateStock);
+            $stmtUpdateStock->execute([$idLibro]);
 
-                if ($stmt->rowCount() == 0) {
-                    $_SESSION['message'] = "El libro no está activo";
-                    $_SESSION['message_type'] = "error";
-                } else {
-                    $_SESSION['message'] = "Dato Ingresado exitosamente";
-                    $_SESSION['message_type'] = "success";
-                }
-                echo '<script>window.location="./Prestamos.php"</script>';
-            } catch (PDOException $e) {
-                echo "Error al insertar datos en la tabla préstamos: " . $e->getMessage();
-                $_SESSION['message'] = "Error al insertar datos en la tabla préstamos";
-                $_SESSION['message_type'] = "error";
-                echo '<script>window.location="./Prestamos.php"</script>';
-            }
+            // Confirmar transacción
+            $conexion->commit();
+
+            //$_SESSION['message'] = "Préstamo añadido y stock actualizado correctamente.";
+            $_SESSION['message_type'] = 'success';
+        } catch (PDOException $e) {
+            // Revertir transacción
+            $conexion->rollBack();
+            //$_SESSION['message'] = "Error al añadir el préstamo y actualizar el stock: " . $e->getMessage();
+            $_SESSION['message_type'] = 'error';
         }
+    }
 
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Actualizar"])) {
@@ -218,7 +233,9 @@ try {
                 $empleadoRecibe = !empty($_POST["txtidempleadorecibe"]) ? $_POST["txtidempleadorecibe"] : NULL;
                 $retrasoDias = !empty($_POST["txtretrasodias"]) ? $_POST["txtretrasodias"] : NULL;
 
-                $consulta = "UPDATE prestamo SET fecha_inicio = ?, fecha_entrega = ?, id_libro = ?, id_cliente = ?, id_empleado_presta = ?, id_empleado_recibe = ?, retraso_dias = ? WHERE id_prestamo = ?";
+                $consulta = "UPDATE prestamo SET fecha_inicio = ?, fecha_entrega = ?, id_libro = ?, "
+                        . "id_cliente = ?, id_empleado_presta = ?, id_empleado_recibe = ?, retraso_dias = ? "
+                        . "WHERE id_prestamo = ?";
                 $stmt = $conexion->prepare($consulta);
                 $stmt->execute([$fechaInicio, $fechaLimite, $fechaEntrega, $idLibro, $idCliente, $empleadoPresta, $empleadoRecibe, $retrasoDias, $idPrestamo]);
                 $_SESSION['message'] = "Dato Actualizado exitosamente";

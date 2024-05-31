@@ -62,7 +62,6 @@ if (isset($_POST['tabla'])) {
     } catch (PDOException $e) {
         echo ("Error....:" . $e->getMessage());
     }
-
     $plot = new PHPlot(1400, 700);
     $plot->SetImageBorderType('plain');
     $plot->SetPlotType($tipo);

@@ -181,15 +181,22 @@ try {
                 $empleadoPresta = $_POST["txtidempleadopresta"];
                 $empleadoRecibe = !empty($_POST["txtidempleadorecibe"]) ? $_POST["txtidempleadorecibe"] : NULL;
 
+                // Actualizar la fecha de entrega y el empleado que recibe
                 $consulta = "UPDATE prestamo SET fecha_inicio = ?, fecha_entrega = ?, id_libro = ?, id_cliente = ?, id_empleado_presta = ?, "
                         . "id_empleado_recibe = ?, retraso_dias = DATEDIFF(fecha_entrega, fecha_limite_entrega) WHERE id_prestamo = ?";
                 $stmt = $conexion->prepare($consulta);
                 $stmt->execute([$fechaInicio, $fechaEntrega, $idLibro, $idCliente, $empleadoPresta, $empleadoRecibe, $idPrestamo]);
-                if ($stmt->rowCount() == 0) {
-                    $_SESSION['message'] = "Error";
+
+                // Sumar 1 al stock del libro correspondiente al préstamo
+                $consultaStock = "UPDATE libro SET stock = stock + 1 WHERE id_libro = ?";
+                $stmtStock = $conexion->prepare($consultaStock);
+                $stmtStock->execute([$idLibro]);
+
+                if ($stmt->rowCount() == 0 || $stmtStock->rowCount() == 0) {
+                    $_SESSION['message'] = "Error al actualizar la devolución o el stock";
                     $_SESSION['message_type'] = "error";
                 } else {
-                    $_SESSION['message'] = "Devolucion Actualizada exitosamente";
+                    $_SESSION['message'] = "Devolución Actualizada exitosamente y stock actualizado";
                     $_SESSION['message_type'] = "success";
                 }
                 echo '<script>window.location="./Devoluciones.php"</script>';
