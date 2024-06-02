@@ -41,12 +41,3 @@ La aplicación permite manejar reportes, usuarios, libros, préstamos, multas y 
 
 - **Reportes:**
   - Generar reportes detallados de usuarios, libros, préstamos y multas.
-
-
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia Personal.
-
-
----
-¡Gracias por usar BibliotecaAlejandriaPHP!
