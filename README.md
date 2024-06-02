@@ -1,4 +1,5 @@
 <img src="img/logoBiblioteca.png" alt="Logo de la Biblioteca" width="200">
+
 ### BibliotecaAlejandriaPHP
 
 ¡Bienvenido a BibliotecaAlejandriaPHP! 
