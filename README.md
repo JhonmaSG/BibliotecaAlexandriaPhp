@@ -1,4 +1,4 @@
-# BibliotecaAlejandriaPHP
+![Logo de la Biblioteca](img/logo.png)# BibliotecaAlejandriaPHP
 
 ¡Bienvenido a BibliotecaAlejandriaPHP! 
 Este proyecto es una aplicación para la gestión de bibliotecas, desarrollada en PHP.
