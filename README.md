@@ -41,5 +41,9 @@ La aplicación permite manejar reportes, usuarios, libros, préstamos, multas y 
   - Registrar multas por retrasos en la devolución de libros.
   - Gestión de pagos de multas.
 
+- **Gráficos y PDF:**
+  - Genera gráficos con los datos segun la BD.
+  - Genera reportes en PDF con los datos segun la BD.
+
 - **Reportes:**
-  - Generar reportes detallados de usuarios, libros, préstamos y multas.
+  - Generar reportes y gráficas de usuarios, libros, empleados, préstamos y multas.
