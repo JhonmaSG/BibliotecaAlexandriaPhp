@@ -1,4 +1,6 @@
-<img src="img/logoBiblioteca.png" alt="Logo de la Biblioteca" width="200">
+<div style="text-align: center;">
+  <img src="img/logoBiblioteca.png" alt="Logo de la Biblioteca" width="200">
+</div>
 
 # BibliotecaAlejandriaPHP
 
