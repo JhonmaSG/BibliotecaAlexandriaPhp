@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div style="margin: 0 auto;">
   <img src="img/logoBiblioteca.png" alt="Logo de la Biblioteca" width="200">
 </div>
 
