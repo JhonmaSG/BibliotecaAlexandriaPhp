@@ -1,6 +1,6 @@
-<div style="margin: 0 auto;">
+<p align="center">
   <img src="img/logoBiblioteca.png" alt="Logo de la Biblioteca" width="200">
-</div>
+</p>
 
 # BibliotecaAlejandriaPHP
 
